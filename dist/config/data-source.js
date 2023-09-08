@@ -8,7 +8,6 @@ const places_entity_1 = require("../places/places.entity");
 const dotenv_1 = require("dotenv");
 require("dotenv").config({ path: "../.env" });
 (0, dotenv_1.config)();
-console.log(process.env.DATABASE_HOST);
 exports.AppDataSource = new typeorm_1.DataSource({
     type: "postgres",
     host: process.env.DATABASE_HOST,
