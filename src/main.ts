@@ -1,20 +1,22 @@
-import * as http from "http";
+import express from "express";
+import bodyParser from "body-parser";
 import { AppDataSource } from "./config/data-source";
+import { placesDto } from "./places/dto/places.dto";
+import { postPlaces } from "./places/places.service";
 
+const app = express();
 const port = 3000;
-console.log("czesc");
 
-const server = http.createServer((req: any, res: any) => {
-  res.writeHead(200, { "Content-Type": "text/plain" });
-  res.end("Hello, World!");
-});
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 AppDataSource.initialize()
   .then(async () => {
     await AppDataSource.synchronize();
   })
   .then(() => {
-    server.listen(port, () => {
+    app.post("/places", placesDto, postPlaces);
+    app.listen(port, () => {
       console.log(`Serwer działa na http://localhost:${port}/`);
     });
   })

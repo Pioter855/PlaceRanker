@@ -7,4 +7,13 @@ export class Places {
 
   @Column({ type: "varchar", length: 255 })
   name: string;
+
+  @Column()
+  address: string;
+
+  @Column()
+  category: string;
+
+  @Column()
+  phoneNumber: number;
 }
